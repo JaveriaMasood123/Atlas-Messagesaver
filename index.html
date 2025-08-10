@@ -17,7 +17,7 @@
       const message = document.getElementById("messageInput").value;
       if (!message) return alert("Please enter a message");
 
-      await fetch("http://localhost:5000/send", {
+      await fetch("http://localhost:5500/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: message })
@@ -28,7 +28,7 @@
     }
 
     async function loadMessages() {
-      const res = await fetch("http://localhost:5000/messages");
+      const res = await fetch("http://localhost:5500/messages");
       const data = await res.json();
       const list = document.getElementById("messageList");
       list.innerHTML = "";
