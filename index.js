@@ -35,6 +35,6 @@ app.get("/messages", async (req, res) => {
   res.json(messages);
 });
 
-const PORT = 5000;
+const PORT = 5500;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
