@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Message Saver</title>
+</head>
+<body>
+  <h1>Message Saver App</h1>
+  <textarea id="messageInput" placeholder="Enter your message"></textarea><br>
+  <button onclick="sendMessage()">Send</button>
+  
+  <h2>Saved Messages</h2>
+  <ul id="messageList"></ul>
+
+  <script>
+    async function sendMessage() {
+      const message = document.getElementById("messageInput").value;
+      if (!message) return alert("Please enter a message");
+
+      await fetch("http://localhost:5000/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: message })
+      });
+
+      document.getElementById("messageInput").value = "";
+      loadMessages();
+    }
+
+    async function loadMessages() {
+      const res = await fetch("http://localhost:5000/messages");
+      const data = await res.json();
+      const list = document.getElementById("messageList");
+      list.innerHTML = "";
+      data.forEach(msg => {
+        const li = document.createElement("li");
+        li.textContent = msg.text;
+        list.appendChild(li);
+      });
+    }
+
+    loadMessages();
+  </script>
+</body>
+</html>
+
